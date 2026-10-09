@@ -1,13 +1,12 @@
 import type { Movie } from "../../types/movie";
 import { Link } from "@tanstack/react-router";
-import { cn } from "../../utils/cn";
+import { BookmarkButton } from "../bookmark-button";
 
 interface MovieCardProps {
   movie: Movie;
-  onToggleBookmark: (movieId: number) => void;
 }
 
-export function MovieCard({ movie, onToggleBookmark }: MovieCardProps) {
+export function MovieCard({ movie }: MovieCardProps) {
   
   return (
     <article className="movie-card">
@@ -19,26 +18,8 @@ export function MovieCard({ movie, onToggleBookmark }: MovieCardProps) {
         >
           <img src={movie.posterPath} alt={`${movie.title} 포스터`} className = "block w-full h-full object-cover"/>
         </Link>
-        <button
-          type="button"
-          className={cn("absolute top-2 right-2 rounded-full p-2 text-white",
-            movie.isBookmarked ? "bg-blue-600" : "bg-black/60",
-          )}
-          onClick={() => onToggleBookmark(movie.id)}
-          aria-label={movie.isBookmarked ? "북마크 해제" : "북마크 추가"}
-          aria-pressed={movie.isBookmarked}
-        >
-          {/* 북마크된 영화는 채워진 아이콘, 아니면 테두리 아이콘 */}
-          <img
-            src={
-              movie.isBookmarked
-                ? "/icons/bookmark.svg"
-                : "/icons/bookmark-outline.svg"
-            }
-            alt=""
-            className="icon"
-          />
-        </button>
+        <BookmarkButton movieId={movie.id} />
+        
       </div>
       <Link 
           to="/movies/$movieId" 
