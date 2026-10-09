@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #141414;
+  --surface: #1f1f1f;
+  --text: #ffffff;
+  --text-sub: #a3a3a3;
+  --accent: #e50914;
+
+  font-family: "Pretendard", system-ui, "Segoe UI", "Malgun Gothic", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 1024px; /* 데스크톱 화면 기준 */
+}
+
+h1, h2, h3, p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* 아이콘 svg는 검정(fill=black)이라 어두운 배경에서 흰색으로 뒤집어요. */
+.icon {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+}
+
