@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", -apple-system,
+    BlinkMacSystemFont, sans-serif;
+  /* Figma의 진한 버튼·활성 메뉴 색이에요 (bg-ink, text-ink) */
+  --color-ink: #17191e;
+}
+
+@layer base {
+  body {
+    @apply bg-gray-100 text-gray-900 antialiased;
+  }
+
+  button:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
