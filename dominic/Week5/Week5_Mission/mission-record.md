@@ -127,4 +127,6 @@ return getTmdbClient()
 - [x] 실제 포스터·배경과 TMDB 출처 표기 확인
 - [x] 실제 API 사용 상태에서 Console 재확인 및 빌드
 
-토큰·Authorization header가 포함된 화면은 캡처해 공유하지 않는다. GitHub 제출은 이슈 [#38](https://github.com/SSUMC-11th-organization/PE_Web_C_FE/issues/38)과 `dominic/#38` 브랜치로 진행한다. Notion 원본과 피드백 시스템은 직접 수정·제출하지 않고, 사용자가 붙여 넣을 문서를 별도로 제공한다.
+토큰·Authorization header가 포함된 화면은 캡처해 공유하지 않는다. GitHub 제출은 이슈 [#38](https://github.com/SSUMC-11th-organization/PE_Web_C_FE/issues/38)과 `dominic/#38` 브랜치로 진행했고, [PR #39](https://github.com/SSUMC-11th-organization/PE_Web_C_FE/pull/39)를 `dominic/main` 대상으로 생성해 팀원 3명에게 리뷰를 요청했다. 머지는 하지 않았다.
+
+Notion 원본과 피드백 시스템은 직접 수정·제출하지 않는다. 사용자가 붙여 넣을 [노션 제출용 문서](../notion-paste.md)에 핵심 키워드·미션 기록·트러블슈팅·제출 링크를 모았다.

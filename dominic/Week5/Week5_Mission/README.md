@@ -97,5 +97,5 @@ pnpm build
 - [워크북](https://makeus-challenge.notion.site/5-API-ec5b57f4596b834da7a481b209c1915f)
 - 기존 UI용 아이콘·TMDB 로고를 재사용했습니다. 실제 영화 포스터는 TMDB 응답 URL을 사용하며, fixture는 테스트 전용입니다.
 - 로그인·회원 API·서버 평점 저장·TanStack Query는 이번 범위가 아닙니다. 기존 평점은 해당 브라우저에만 저장합니다.
-- GitHub 제출은 [이슈 #38](https://github.com/SSUMC-11th-organization/PE_Web_C_FE/issues/38)과 `dominic/#38` 브랜치에서 진행합니다. 이전 주차는 PR 변경 범위에 포함하지 않습니다.
-- Notion 직접 편집·피드백 제출은 사용자가 진행합니다. 핵심 키워드·미션 기록·트러블슈팅을 합친 붙여 넣기용 문서를 제공합니다.
+- GitHub 제출: [이슈 #38](https://github.com/SSUMC-11th-organization/PE_Web_C_FE/issues/38), [PR #39](https://github.com/SSUMC-11th-organization/PE_Web_C_FE/pull/39), `dominic/#38` → `dominic/main`. 이전 주차는 PR 변경 범위에 포함하지 않으며 머지는 하지 않았습니다.
+- Notion 직접 편집·피드백 제출은 사용자가 진행합니다. [붙여 넣기용 문서](../notion-paste.md)에 핵심 키워드·미션 기록·트러블슈팅·제출 링크를 모았습니다.
