@@ -1,24 +1,54 @@
-
 import { useEffect, useState } from "react";
-import { MovieGrid } from "../../components/movies/movie-grid";
-import { movies as initialMovies } from "../../data/movies";
+import MovieGrid from "../../components/movies/movie-grid";
+import { getMovies } from "../../api/movies/get-movies";
+import type { TmdbMovieListItem } from "../../api/movies/models";
 import {
   readBookmarkIds,
   saveBookmarkIds,
 } from "../../utils/bookmark-storage";
 
 export function MovieListPage() {
-  // 1. 저장된 북마크 ID 불러오기
+  const [movies, setMovies] = useState<TmdbMovieListItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const [bookmarkedMovieIds, setBookmarkedMovieIds] =
     useState<number[]>(() => readBookmarkIds());
 
-  // 2. 북마크 ID를 기준으로 영화 목록 만들기
-  const movies = initialMovies.map((movie) => ({
+  // 영화 목록 요청
+  useEffect(() => {
+    let ignore = false;
+
+    async function loadMovies() {
+      setIsLoading(true);
+      setErrorMessage(null);
+
+      try {
+        const response = await getMovies({ page: 1 });
+        if (!ignore) setMovies(response.results);
+      } catch {
+        if (!ignore) {
+          setErrorMessage("영화 목록을 불러오지 못했어요.");
+        }
+      } finally {
+        if (!ignore) setIsLoading(false);
+      }
+    }
+
+    loadMovies();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  // 받은 영화 데이터에 북마크 여부 추가
+  const moviesWithBookmarks = movies.map((movie) => ({
     ...movie,
     isBookmarked: bookmarkedMovieIds.includes(movie.id),
   }));
 
-  // 3. 북마크 버튼 클릭 시 ID 추가 또는 제거
+  // 북마크 토글
   const handleToggleBookmark = (movieId: number) => {
     setBookmarkedMovieIds((prev) =>
       prev.includes(movieId)
@@ -27,7 +57,7 @@ export function MovieListPage() {
     );
   };
 
-  // 4. 북마크가 변경되면 localStorage에 저장
+  // 북마크 저장
   useEffect(() => {
     saveBookmarkIds(bookmarkedMovieIds);
   }, [bookmarkedMovieIds]);
@@ -36,10 +66,19 @@ export function MovieListPage() {
     <div className="movies-page">
       <main className="movies-page__main">
         <h2 className="movies-page__title">영화 목록</h2>
-        <MovieGrid
-          movies={movies}
-          onToggleBookmark={handleToggleBookmark}
-        />
+
+        {isLoading ? (
+          <p>영화 목록을 불러오는 중이에요.</p>
+        ) : errorMessage ? (
+          <p>{errorMessage}</p>
+        ) : movies.length === 0 ? (
+          <p>조건에 맞는 영화가 없어요.</p>
+        ) : (
+          <MovieGrid
+            movies={moviesWithBookmarks}
+            onToggleBookmark={handleToggleBookmark}
+          />
+        )}
       </main>
     </div>
   );

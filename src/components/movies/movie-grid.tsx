@@ -1,14 +1,18 @@
-import type { Movie } from "../../types/movie";
-import { MovieCard } from "./movie-card"
+import { MovieCard } from "./movie-card";
+import type { TmdbMovieListItem } from "../../api/movies/models";
 
 interface MovieGridProps {
-  movies: Movie[];
+  movies: (TmdbMovieListItem & {
+    isBookmarked: boolean;
+  })[];
   onToggleBookmark: (movieId: number) => void;
 }
 
-export function MovieGrid({ movies }: MovieGridProps) {
+export default function MovieGrid({
+  movies,
+}: MovieGridProps) {
   return (
-    <section className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+    <section className="movie-grid">
       {movies.map((movie) => (
         <MovieCard
           key={movie.id}
