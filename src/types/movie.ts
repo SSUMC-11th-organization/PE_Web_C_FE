@@ -11,3 +11,11 @@ export interface Movie {
   overview: string;
   isBookmarked: boolean;
 }
+export interface MovieCardData {
+  id: number;
+  title: string;
+  originalTitle: string;
+  releaseDate: string;
+  posterPath: string | null;
+  isBookmarked: boolean;
+}
