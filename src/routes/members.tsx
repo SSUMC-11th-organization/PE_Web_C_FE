@@ -1,6 +1,3 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { MemberApiPage } from "../pages/members/member-api-page";
-
-export const Route = createFileRoute("/members")({
-  component: MemberApiPage,
-});
+import { ProfilePage } from "../pages/members/profile-page";
+export const Route = createFileRoute("/members")({ component: ProfilePage });

@@ -30,11 +30,12 @@ export function SearchPage() {
   }
 
   return (
-    <main className="search-page">
-      <h1>영화 검색</h1>
+    <main className={`search-page ${!normalizedQuery ? "search-page--empty" : ""}`}>
+      <h1>{normalizedQuery ? "영화 검색" : "어떤 영화를 찾고 있나요?"}</h1>
       <form onSubmit={handleSubmit}>
         <input
           aria-label="검색어"
+          placeholder="영화 제목을 입력하세요"
           value={searchText}
           onChange={(event) => setSearchText(event.target.value)}
         />
@@ -42,7 +43,7 @@ export function SearchPage() {
       </form>
 
       {!normalizedQuery ? (
-        <p>검색어를 입력해 주세요.</p>
+        null
       ) : searchQuery.isLoading ? (
         <p>검색 결과를 불러오는 중이에요.</p>
       ) : searchQuery.isError ? (

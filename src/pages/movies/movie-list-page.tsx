@@ -1,43 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Pagination } from "../../components/movies/pagination";
 import { useQuery } from "@tanstack/react-query";
 import MovieGrid from "../../components/movies/movie-grid";
 import { getMovies } from "../../api/movies/get-movies";
-import {
-  readBookmarkIds,
-  saveBookmarkIds,
-} from "../../utils/bookmark-storage";
-
 export function MovieListPage() {
   const [page, setPage] = useState(1);
 
-  const [bookmarkedMovieIds, setBookmarkedMovieIds] = useState<number[]>(
-    () => readBookmarkIds(),
-  );
-
   const moviesQuery = useQuery({
     queryKey: ["movies", "list", { page }],
-    queryFn: () => getMovies({ page }),
+    queryFn: () => getMovies({ page: Math.ceil(page / 2) }),
   });
 
-  const movies = moviesQuery.data?.results ?? [];
-  const totalPages = moviesQuery.data?.total_pages ?? 0;
-
-  const moviesWithBookmarks = movies.map((movie) => ({
-    ...movie,
-    isBookmarked: bookmarkedMovieIds.includes(movie.id),
-  }));
-
-  const handleToggleBookmark = (movieId: number) => {
-    setBookmarkedMovieIds((prev) =>
-      prev.includes(movieId)
-        ? prev.filter((id) => id !== movieId)
-        : [...prev, movieId],
-    );
-  };
-
-  useEffect(() => {
-    saveBookmarkIds(bookmarkedMovieIds);
-  }, [bookmarkedMovieIds]);
+  const allMovies = moviesQuery.data?.results ?? [];
+  const movies = allMovies.slice((page - 1) % 2 * 10, ((page - 1) % 2 + 1) * 10);
+  const totalPages = Math.min((moviesQuery.data?.total_pages ?? 0) * 2, 1000);
 
   return (
     <div className="movies-page">
@@ -52,30 +28,8 @@ export function MovieListPage() {
           <p>표시할 영화가 없어요.</p>
         ) : (
           <>
-            <MovieGrid
-              movies={moviesWithBookmarks}
-              onToggleBookmark={handleToggleBookmark}
-            />
-
-            <div>
-              <button
-                type="button"
-                disabled={page <= 1}
-                onClick={() => setPage((prev) => prev - 1)}
-              >
-                이전
-              </button>
-
-              <span> {page} / {totalPages} </span>
-
-              <button
-                type="button"
-                disabled={page >= totalPages}
-                onClick={() => setPage((prev) => prev + 1)}
-              >
-                다음
-              </button>
-            </div>
+            <MovieGrid movies={movies} />
+            <Pagination page={page} totalPages={totalPages} onChange={setPage} />
           </>
         )}
       </main>

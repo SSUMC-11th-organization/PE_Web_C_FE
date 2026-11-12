@@ -10,14 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as MembersRouteImport } from './routes/members'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as MembersApiRouteImport } from './routes/members_.api'
+import { Route as MembersEditRouteImport } from './routes/members_.edit'
 import { Route as MoviesMovieIdRouteImport } from './routes/movies.$movieId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MembersRoute = MembersRouteImport.update({
@@ -35,6 +43,16 @@ const SignupRoute = SignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MembersApiRoute = MembersApiRouteImport.update({
+  id: '/members_/api',
+  path: '/members/api',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembersEditRoute = MembersEditRouteImport.update({
+  id: '/members_/edit',
+  path: '/members/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MoviesMovieIdRoute = MoviesMovieIdRouteImport.update({
   id: '/movies/$movieId',
   path: '/movies/$movieId',
@@ -43,39 +61,76 @@ const MoviesMovieIdRoute = MoviesMovieIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/members': typeof MembersRoute
   '/search': typeof SearchRoute
   '/signup': typeof SignupRoute
+  '/members/api': typeof MembersApiRoute
+  '/members/edit': typeof MembersEditRoute
   '/movies/$movieId': typeof MoviesMovieIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/members': typeof MembersRoute
   '/search': typeof SearchRoute
   '/signup': typeof SignupRoute
+  '/members/api': typeof MembersApiRoute
+  '/members/edit': typeof MembersEditRoute
   '/movies/$movieId': typeof MoviesMovieIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/members': typeof MembersRoute
   '/search': typeof SearchRoute
   '/signup': typeof SignupRoute
+  '/members_/api': typeof MembersApiRoute
+  '/members_/edit': typeof MembersEditRoute
   '/movies/$movieId': typeof MoviesMovieIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/members' | '/search' | '/signup' | '/movies/$movieId'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/members'
+    | '/search'
+    | '/signup'
+    | '/members/api'
+    | '/members/edit'
+    | '/movies/$movieId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/members' | '/search' | '/signup' | '/movies/$movieId'
-  id: '__root__' | '/' | '/members' | '/search' | '/signup' | '/movies/$movieId'
+  to:
+    | '/'
+    | '/login'
+    | '/members'
+    | '/search'
+    | '/signup'
+    | '/members/api'
+    | '/members/edit'
+    | '/movies/$movieId'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/members'
+    | '/search'
+    | '/signup'
+    | '/members_/api'
+    | '/members_/edit'
+    | '/movies/$movieId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
   MembersRoute: typeof MembersRoute
   SearchRoute: typeof SearchRoute
   SignupRoute: typeof SignupRoute
+  MembersApiRoute: typeof MembersApiRoute
+  MembersEditRoute: typeof MembersEditRoute
   MoviesMovieIdRoute: typeof MoviesMovieIdRoute
 }
 
@@ -86,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/members': {
@@ -109,6 +171,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/members_/api': {
+      id: '/members_/api'
+      path: '/members/api'
+      fullPath: '/members/api'
+      preLoaderRoute: typeof MembersApiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/members_/edit': {
+      id: '/members_/edit'
+      path: '/members/edit'
+      fullPath: '/members/edit'
+      preLoaderRoute: typeof MembersEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/movies/$movieId': {
       id: '/movies/$movieId'
       path: '/movies/$movieId'
@@ -121,9 +197,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
   MembersRoute: MembersRoute,
   SearchRoute: SearchRoute,
   SignupRoute: SignupRoute,
+  MembersApiRoute: MembersApiRoute,
+  MembersEditRoute: MembersEditRoute,
   MoviesMovieIdRoute: MoviesMovieIdRoute,
 }
 export const routeTree = rootRouteImport

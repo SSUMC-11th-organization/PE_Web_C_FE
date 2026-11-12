@@ -1,3 +1,4 @@
+import { RatingForm } from "../../components/movies/rating-form";
 import { Link, useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { getMovieDetail } from "../../api/movies/get-movie-detail";
@@ -60,9 +61,10 @@ export function MovieDetailPage() {
 
   return (
     <main className="movie-detail">
-      <div className="movie-detail__hero" aria-hidden="true">
+      <div className="movie-detail__hero">
         {backdropUrl && <img src={backdropUrl} alt="" />}
         <div className="movie-detail__hero-shade" />
+        <div className="movie-detail__hero-copy"><h1>{movie.title}</h1><p>{movie.original_title}</p><p>{movie.release_date} · {runtimeText}</p></div>
       </div>
 
       <div className="movie-detail__container">
@@ -92,7 +94,7 @@ export function MovieDetailPage() {
           <article className="movie-detail__content">
             <header className="movie-detail__heading">
               <span className="movie-detail__eyebrow">MOVIE DETAILS</span>
-              <h1>{movie.title}</h1>
+              <h2>{movie.title}</h2>
               <p className="movie-detail__original-title">
                 {movie.original_title}
               </p>
@@ -153,6 +155,7 @@ export function MovieDetailPage() {
               <span>영화 정보 제공 · The Movie Database</span>
             </footer>
           </article>
+          <RatingForm key={movie.id} />
         </div>
       </div>
     </main>

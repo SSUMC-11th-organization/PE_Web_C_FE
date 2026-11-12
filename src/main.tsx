@@ -26,3 +26,6 @@ createRoot(document.getElementById("root")!).render(
     </QueryClientProvider>
   </StrictMode>,
 );
+
+import "./pages/auth/signup-page.css";
+import "./design.css";

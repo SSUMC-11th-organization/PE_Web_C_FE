@@ -17,10 +17,7 @@ export function Header() {
           <Link to="/search" className="header__icon-link" aria-label="영화 검색">
             <img src="/icons/search.svg" alt="" className="icon" />
           </Link>
-          <Link to="/members" className="header__member-link">
-            <img src="/icons/person.svg" alt="" className="icon" />
-            <span>내 정보</span>
-          </Link>
+          <Link to="/login" className="header__member-link">로그인</Link>
         </nav>
       </div>
     </header>

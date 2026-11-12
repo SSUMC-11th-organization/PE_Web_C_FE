@@ -1,5 +1,6 @@
 import { useState } from "react";
-import "./signup-page.css";
+import { Link } from "@tanstack/react-router";
+
 
 import { signup } from "../../api/members/signup";
 // import { useNavigate } from "@tanstack/react-router";
@@ -204,7 +205,7 @@ export function SignupPage() {
         >
           {isSubmitting ? "가입 중" : "가입하기"}
         </button>
-        <p className="signup-login">이미 계정이 있나요? <a href="/login">로그인</a></p>
+        <p className="signup-login">이미 계정이 있나요? <Link to="/login">로그인</Link></p>
       </form>
     </main>
   );
