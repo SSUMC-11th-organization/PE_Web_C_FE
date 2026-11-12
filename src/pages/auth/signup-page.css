@@ -1,0 +1,28 @@
+body:has(.signup-page) { min-width: 320px; }
+.signup-page { min-height: calc(100dvh - 96px); display: flex; justify-content: center; align-items: center; padding: 80px 24px; background: #f6f7f9; color: #191b20; }
+.signup-form { width: 100%; max-width: 490px; }
+.signup-form h1 { margin: 0 0 18px; font-size: 38px; font-weight: 800; line-height: 1.3; letter-spacing: -1.7px; }
+.signup-field { margin-bottom: 18px; }
+.signup-field label { display: block; margin-bottom: 7px; font-size: 14px; font-weight: 700; line-height: 1.6; }
+.signup-input-row { display: flex; align-items: center; min-height: 56px; border: 1px solid #dfe3eb; border-radius: 9px; background: #fff; transition: border-color .15s, box-shadow .15s; }
+.signup-input-row:focus-within { border-color: #2563eb; box-shadow: 0 0 0 3px #2563eb12; }
+.signup-input-row:has(input[aria-invalid="true"]) { border-color: #dc5656; }
+.signup-input-row input { width: 100%; min-width: 0; height: 54px; padding: 0 17px; border: 0; outline: none; border-radius: 9px; background: transparent; color: #191b20; font-size: 15px; }
+.signup-input-row input:focus-visible { outline: none; }
+.signup-input-row input::placeholder { color: #98a2b3; opacity: 1; }
+.signup-check { flex-shrink: 0; align-self: stretch; padding: 0 16px 0 10px; color: #2563ff; font-size: 13px; font-weight: 700; }
+.signup-check:disabled { opacity: 1; }
+.signup-help, .signup-error { margin: 4px 0 0; font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
+.signup-help { color: #98a2b3; }
+.signup-error { color: #c73939; }
+.signup-submit { display: block; width: 100%; min-height: 54px; border-radius: 9px; background: #2563eb; color: #fff; font-size: 15px; font-weight: 700; transition: background .15s; }
+.signup-submit:hover:not(:disabled) { background: #1d4ed8; }
+.signup-submit:disabled { opacity: .65; }
+.signup-login { margin-top: 18px; text-align: center; color: #6b7280; font-size: 14px; }
+.signup-login a { color: #2563ff; font-weight: 700; }
+.signup-login a:hover { text-decoration: underline; }
+@media (max-width: 720px) {
+  .signup-page { min-height: calc(100dvh - 76px); padding: 56px 24px; }
+  .signup-form h1 { font-size: 32px; }
+}
+@media (prefers-reduced-motion: reduce) { .signup-input-row, .signup-submit { transition: none; } }
