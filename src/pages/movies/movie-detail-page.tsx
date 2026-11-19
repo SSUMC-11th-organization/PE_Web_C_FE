@@ -1,3 +1,4 @@
+import { FavoriteButton } from "../../components/movies/favorite-button";
 import { RatingForm } from "../../components/movies/rating-form";
 import { Link, useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
@@ -95,6 +96,7 @@ export function MovieDetailPage() {
             <header className="movie-detail__heading">
               <span className="movie-detail__eyebrow">MOVIE DETAILS</span>
               <h2>{movie.title}</h2>
+              <FavoriteButton movieId={movie.id} />
               <p className="movie-detail__original-title">
                 {movie.original_title}
               </p>
@@ -155,7 +157,7 @@ export function MovieDetailPage() {
               <span>영화 정보 제공 · The Movie Database</span>
             </footer>
           </article>
-          <RatingForm key={movie.id} />
+          <RatingForm key={movie.id} movieId={movie.id} />
         </div>
       </div>
     </main>

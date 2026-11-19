@@ -11,12 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as MembersRouteImport } from './routes/members'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as authenticatedProtectedRouteImport } from './routes/(authenticated)/_protected'
 import { Route as MembersApiRouteImport } from './routes/members_.api'
-import { Route as MembersEditRouteImport } from './routes/members_.edit'
 import { Route as MoviesMovieIdRouteImport } from './routes/movies.$movieId'
+import { Route as authenticatedProtectedMembersRouteImport } from './routes/(authenticated)/_protected.members'
+import { Route as authenticatedProtectedMembersEditRouteImport } from './routes/(authenticated)/_protected.members_.edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -26,11 +27,6 @@ const IndexRoute = IndexRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MembersRoute = MembersRouteImport.update({
-  id: '/members',
-  path: '/members',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SearchRoute = SearchRouteImport.update({
@@ -43,14 +39,13 @@ const SignupRoute = SignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const authenticatedProtectedRoute = authenticatedProtectedRouteImport.update({
+  id: '/(authenticated)/_protected',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MembersApiRoute = MembersApiRouteImport.update({
   id: '/members_/api',
   path: '/members/api',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MembersEditRoute = MembersEditRouteImport.update({
-  id: '/members_/edit',
-  path: '/members/edit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MoviesMovieIdRoute = MoviesMovieIdRouteImport.update({
@@ -58,79 +53,92 @@ const MoviesMovieIdRoute = MoviesMovieIdRouteImport.update({
   path: '/movies/$movieId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const authenticatedProtectedMembersRoute =
+  authenticatedProtectedMembersRouteImport.update({
+    id: '/members',
+    path: '/members',
+    getParentRoute: () => authenticatedProtectedRoute,
+  } as any)
+const authenticatedProtectedMembersEditRoute =
+  authenticatedProtectedMembersEditRouteImport.update({
+    id: '/members_/edit',
+    path: '/members/edit',
+    getParentRoute: () => authenticatedProtectedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/members': typeof MembersRoute
   '/search': typeof SearchRoute
   '/signup': typeof SignupRoute
   '/members/api': typeof MembersApiRoute
-  '/members/edit': typeof MembersEditRoute
   '/movies/$movieId': typeof MoviesMovieIdRoute
+  '/members': typeof authenticatedProtectedMembersRoute
+  '/members/edit': typeof authenticatedProtectedMembersEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/members': typeof MembersRoute
   '/search': typeof SearchRoute
   '/signup': typeof SignupRoute
   '/members/api': typeof MembersApiRoute
-  '/members/edit': typeof MembersEditRoute
   '/movies/$movieId': typeof MoviesMovieIdRoute
+  '/members': typeof authenticatedProtectedMembersRoute
+  '/members/edit': typeof authenticatedProtectedMembersEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/members': typeof MembersRoute
   '/search': typeof SearchRoute
   '/signup': typeof SignupRoute
+  '/(authenticated)/_protected': typeof authenticatedProtectedRouteWithChildren
   '/members_/api': typeof MembersApiRoute
-  '/members_/edit': typeof MembersEditRoute
   '/movies/$movieId': typeof MoviesMovieIdRoute
+  '/(authenticated)/_protected/members': typeof authenticatedProtectedMembersRoute
+  '/(authenticated)/_protected/members_/edit': typeof authenticatedProtectedMembersEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/login'
-    | '/members'
     | '/search'
     | '/signup'
     | '/members/api'
-    | '/members/edit'
     | '/movies/$movieId'
+    | '/members'
+    | '/members/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/login'
-    | '/members'
     | '/search'
     | '/signup'
     | '/members/api'
-    | '/members/edit'
     | '/movies/$movieId'
+    | '/members'
+    | '/members/edit'
   id:
     | '__root__'
     | '/'
     | '/login'
-    | '/members'
     | '/search'
     | '/signup'
+    | '/(authenticated)/_protected'
     | '/members_/api'
-    | '/members_/edit'
     | '/movies/$movieId'
+    | '/(authenticated)/_protected/members'
+    | '/(authenticated)/_protected/members_/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
-  MembersRoute: typeof MembersRoute
   SearchRoute: typeof SearchRoute
   SignupRoute: typeof SignupRoute
+  authenticatedProtectedRoute: typeof authenticatedProtectedRouteWithChildren
   MembersApiRoute: typeof MembersApiRoute
-  MembersEditRoute: typeof MembersEditRoute
   MoviesMovieIdRoute: typeof MoviesMovieIdRoute
 }
 
@@ -150,13 +158,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/members': {
-      id: '/members'
-      path: '/members'
-      fullPath: '/members'
-      preLoaderRoute: typeof MembersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/search': {
       id: '/search'
       path: '/search'
@@ -171,18 +172,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(authenticated)/_protected': {
+      id: '/(authenticated)/_protected'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof authenticatedProtectedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/members_/api': {
       id: '/members_/api'
       path: '/members/api'
       fullPath: '/members/api'
       preLoaderRoute: typeof MembersApiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/members_/edit': {
-      id: '/members_/edit'
-      path: '/members/edit'
-      fullPath: '/members/edit'
-      preLoaderRoute: typeof MembersEditRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/movies/$movieId': {
@@ -192,17 +193,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MoviesMovieIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(authenticated)/_protected/members': {
+      id: '/(authenticated)/_protected/members'
+      path: '/members'
+      fullPath: '/members'
+      preLoaderRoute: typeof authenticatedProtectedMembersRouteImport
+      parentRoute: typeof authenticatedProtectedRoute
+    }
+    '/(authenticated)/_protected/members_/edit': {
+      id: '/(authenticated)/_protected/members_/edit'
+      path: '/members/edit'
+      fullPath: '/members/edit'
+      preLoaderRoute: typeof authenticatedProtectedMembersEditRouteImport
+      parentRoute: typeof authenticatedProtectedRoute
+    }
   }
 }
+
+interface authenticatedProtectedRouteChildren {
+  authenticatedProtectedMembersRoute: typeof authenticatedProtectedMembersRoute
+  authenticatedProtectedMembersEditRoute: typeof authenticatedProtectedMembersEditRoute
+}
+
+const authenticatedProtectedRouteChildren: authenticatedProtectedRouteChildren =
+  {
+    authenticatedProtectedMembersRoute: authenticatedProtectedMembersRoute,
+    authenticatedProtectedMembersEditRoute:
+      authenticatedProtectedMembersEditRoute,
+  }
+
+const authenticatedProtectedRouteWithChildren =
+  authenticatedProtectedRoute._addFileChildren(
+    authenticatedProtectedRouteChildren,
+  )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
-  MembersRoute: MembersRoute,
   SearchRoute: SearchRoute,
   SignupRoute: SignupRoute,
+  authenticatedProtectedRoute: authenticatedProtectedRouteWithChildren,
   MembersApiRoute: MembersApiRoute,
-  MembersEditRoute: MembersEditRoute,
   MoviesMovieIdRoute: MoviesMovieIdRoute,
 }
 export const routeTree = rootRouteImport

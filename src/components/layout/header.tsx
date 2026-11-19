@@ -1,6 +1,11 @@
 import { Link } from "@tanstack/react-router";
 
+import { useMeQuery } from "../../hooks/use-member-queries";
+import { useAuthStore } from "../../stores/auth-store";
+
 export function Header() {
+  const accessToken = useAuthStore((state) => state.accessToken);
+  const meQuery = useMeQuery();
   return (
     <header className="header">
       <div className="header__inner">
@@ -17,7 +22,17 @@ export function Header() {
           <Link to="/search" className="header__icon-link" aria-label="영화 검색">
             <img src="/icons/search.svg" alt="" className="icon" />
           </Link>
-          <Link to="/login" className="header__member-link">로그인</Link>
+          {!accessToken ? (
+            <Link to="/login" className="header__member-link">
+              로그인
+            </Link>
+          ) : meQuery.isLoading ? (
+            <span className="h-10 w-24 animate-pulse rounded-lg bg-gray-200" />
+          ) : (
+            <Link to="/members" className="header__member-link">
+              마이페이지
+            </Link>
+          )}
         </nav>
       </div>
     </header>
