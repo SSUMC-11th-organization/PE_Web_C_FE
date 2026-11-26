@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
+
 :root {
-  --bg: #141414;
-  --surface: #1f1f1f;
-  --text: #ffffff;
-  --text-sub: #a3a3a3;
-  --accent: #e50914;
+  --bg: #f6f7f9;
+  --surface: #e9edf2;
+  --text: #181b22;
+  --text-sub: #9099a8;
+  --accent: #2563eb;
 
   font-family: "Pretendard", system-ui, "Segoe UI", "Malgun Gothic", sans-serif;
   color: var(--text);
@@ -18,7 +19,7 @@
 
 body {
   margin: 0;
-  min-width: 1024px; /* 데스크톱 화면 기준 */
+  min-width: 320px;
 }
 
 h1, h2, h3, p {
@@ -38,6 +39,6 @@ button {
 .icon {
   width: 24px;
   height: 24px;
-  filter: invert(1);
+  filter: none;
 }
 

@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+const undefinedStorage = { getItem: () => null, setItem: () => {}, removeItem: () => {} };
+
 interface BookmarkStore {
   bookmarkedMovieIds: number[];
   toggleBookmark: (movieId: number) => void;
@@ -19,7 +21,8 @@ export const useBookmarkStore = create<BookmarkStore>()(
     }),
     {
       name: "umcine-bookmark-store",
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => typeof window === "undefined" ? undefinedStorage : window.localStorage),
+      skipHydration: true,
       partialize: (state) => ({
         bookmarkedMovieIds: state.bookmarkedMovieIds,
       }),

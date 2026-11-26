@@ -88,3 +88,9 @@ SSUMC 11기 Web 스터디 C조
 
 6. **마감 기한**
    - 스터디 전날 23:59까지 제출을 완료해야 합니다.
+
+## UMCine 실행
+
+`pnpm install` 후 `pnpm dev`로 실행하고 http://localhost:3000 을 엽니다. 프로덕션은 `pnpm build` 후 `pnpm start`로 실행합니다.
+
+루트의 `.env.local`에 `TMDB_API_BASE_URL`, `TMDB_ACCESS_TOKEN`, `API_BASE_URL`을 설정합니다. 기존 `VITE_` 접두사 이름도 지원합니다. 회원·평점·즐겨찾기 기능을 확인하려면 백엔드도 실행해야 합니다.

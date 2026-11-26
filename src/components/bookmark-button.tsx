@@ -1,24 +1,9 @@
 import { useBookmarkStore } from "../stores/bookmark-store";
 
-interface BookmarkButtonProps {
-  movieId: number;
-}
-
-export function BookmarkButton({ movieId }: BookmarkButtonProps) {
-  const isBookmarked = useBookmarkStore((state) =>
-    state.bookmarkedMovieIds.includes(movieId),
-  );
-  const toggleBookmark = useBookmarkStore(
-    (state) => state.toggleBookmark,
-  );
-
-  return (
-  <button
-    type="button"
-    className="absolute top-2 right-2 z-10 rounded bg-blue-600 p-2 text-white"
-    onClick={() => toggleBookmark(movieId)}
-  >
-    {isBookmarked ? "북마크 해제" : "북마크 추가"}
-  </button>
-);
+export function BookmarkButton({ movieId }: { movieId: number }) {
+  const isBookmarked = useBookmarkStore((s) => s.bookmarkedMovieIds.includes(movieId));
+  const toggleBookmark = useBookmarkStore((s) => s.toggleBookmark);
+  return <button type="button" className={`bookmark-button ${isBookmarked ? "is-active" : ""}`} aria-label={isBookmarked ? "북마크 해제" : "북마크 추가"} aria-pressed={isBookmarked} onClick={() => toggleBookmark(movieId)}>
+    <svg width="17" height="20" viewBox="0 0 18 22" fill="none" aria-hidden="true"><path d="M3 2h12v18l-6-4-6 4V2Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill={isBookmarked ? "currentColor" : "none"} /></svg>
+  </button>;
 }

@@ -1,5 +1,5 @@
 import type { TmdbMovieListItem } from "../../api/movies/models";
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 import { BookmarkButton } from "../bookmark-button";
 import { getTmdbPosterUrl } from "../../utils/movies/tmdb-image";
 
@@ -14,8 +14,7 @@ export function MovieCard({ movie }: MovieCardProps) {
     <article className="movie-card">
       <div className="overflow-hidden rounded-[10px] relative aspect-[2/3] bg-[var(--surface)]">
         <Link
-          to="/movies/$movieId"
-          params={{ movieId: String(movie.id) }}
+          href={`/movies/${movie.id}`}
           className="block w-full h-full"
         >
           {posterUrl ? (
@@ -35,8 +34,7 @@ export function MovieCard({ movie }: MovieCardProps) {
       </div>
 
       <Link
-        to="/movies/$movieId"
-        params={{ movieId: String(movie.id) }}
+        href={`/movies/${movie.id}`}
         className="text-inherit no-underline"
       >
         <h3 className="mt-3 text-base font-bold truncate">
