@@ -1,6 +1,6 @@
 import { useState, type SubmitEvent } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 import type { RatingResponse } from "../../api/members/member-api";
 import { createRating, deleteRating, updateRating } from "../../api/ratings";
 import { useRatingsQuery } from "../../hooks/use-member-queries";
@@ -15,7 +15,7 @@ export function RatingForm({ movieId }: { movieId: number }) {
     <aside className="movie-rating">
       <h2>내 평점</h2>
       {!accessToken ? (
-        <Link to="/login">로그인하고 평점 남기기</Link>
+        <Link href="/login">로그인하고 평점 남기기</Link>
       ) : memberId === null ? (
         <p role="alert">회원 번호를 확인할 수 없어요.</p>
       ) : query.isPending ? (

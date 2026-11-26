@@ -43,3 +43,6 @@ Thumbs.db
 node_modules
 dist
 *.local
+
+# Next.js generated types
+/next-env.d.ts

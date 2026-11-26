@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 import { addFavorite, getFavoriteStatus, removeFavorite } from "../../api/favorites";
 import { useAuthStore } from "../../stores/auth-store";
 
@@ -24,7 +24,7 @@ export function FavoriteButton({ movieId }: { movieId: number }) {
       queryClient.invalidateQueries({ queryKey: ["favorites", accessToken] }),
   });
 
-  if (!accessToken) return <Link to="/login">로그인하고 즐겨찾기</Link>;
+  if (!accessToken) return <Link href="/login">로그인하고 즐겨찾기</Link>;
   if (favorite.isPending) return <p role="status">즐겨찾기를 확인하는 중이에요.</p>;
   if (favorite.isError) {
     return <button type="button" onClick={() => void favorite.refetch()}>
