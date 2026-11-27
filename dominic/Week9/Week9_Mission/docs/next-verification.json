@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "route": "/?page=2",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "route": "/search?query=%EC%9D%B8%EC%85%89%EC%85%98&page=1",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "route": "/movies/1726",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "route": "/about",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "route": "/missing-page",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "route": "/api/tmdb/account",
+      "status": 404,
+      "passed": true
+    }
+  ],
+  "ssrVerifiedWithoutBrowserJavaScript": true,
+  "browserBundlesScanned": 39,
+  "tokenLeakCheck": "passed"
+}
